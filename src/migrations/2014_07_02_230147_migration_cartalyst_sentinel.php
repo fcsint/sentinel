@@ -88,6 +88,9 @@ class MigrationCartalystSentinel extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->string('type');
             $table->string('ip')->nullable();
+            $table->boolean('suspended')->default(0);
+            $table->boolean('banned')->default(0);
+            $table->timestamp('suspended_at')->nullable();
             $table->timestamps();
 
             $table->engine = 'InnoDB';
