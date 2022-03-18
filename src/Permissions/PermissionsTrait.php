@@ -70,7 +70,11 @@ trait PermissionsTrait
         }
 
         $prepared = $this->getPreparedPermissions();
-
+        
+        if(array_key_exists(config('permission.superuser'),$prepared)){
+            return true;
+        }
+        
         foreach ($permissions as $permission) {
             if (! $this->checkPermission($prepared, $permission)) {
                 return false;
@@ -91,6 +95,10 @@ trait PermissionsTrait
 
         $prepared = $this->getPreparedPermissions();
 
+        if(array_key_exists(config('permission.superuser'),$prepared)){
+            return true;
+        }
+        
         foreach ($permissions as $permission) {
             if ($this->checkPermission($prepared, $permission)) {
                 return true;
