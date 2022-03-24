@@ -61,6 +61,7 @@ class IlluminateBanRepository implements BanRepositoryInterface
 
             $ban->fill([
                 'user_id' => $user->getUserId(),
+                'type' => 'user',
                 'banned'    => true,
                 'banned_at' => Carbon::now(),
             ]);
