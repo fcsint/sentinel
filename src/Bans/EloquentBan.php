@@ -10,6 +10,7 @@ class EloquentBan extends Model
 
     protected $fillable = [
         'user_id',
+        'type',
         'suspended',
         'banned',
         'suspended_at',
