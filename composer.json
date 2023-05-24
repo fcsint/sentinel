@@ -6,8 +6,7 @@
         "cartalyst",
         "laravel",
         "auth",
-        "security",
-        "focusint"
+        "security"
     ],
     "license": "BSD-3-Clause",
     "authors": [
@@ -18,16 +17,17 @@
         }
     ],
     "require": {
-        "php": "^7.3 || ^8.0",
-        "cartalyst/support": "^5.0"
+        "php": "^8.1",
+        "cartalyst/support": "^7.0",
+        "illuminate/support": "^10.0"
     },
     "require-dev": {
-        "cartalyst/php-cs-fixer-config": "^1.0",
-        "illuminate/cookie": "^8.0",
-        "illuminate/database": "^8.0",
-        "illuminate/events": "^8.0",
-        "illuminate/http": "^8.0",
-        "illuminate/session": "^8.0",
+        "cartalyst/php-cs-fixer-config": "^2.0",
+        "illuminate/cookie": "^10.0",
+        "illuminate/database": "^10.0",
+        "illuminate/events": "^10.0",
+        "illuminate/http": "^10.0",
+        "illuminate/session": "^10.0",
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^9.0"
     },
@@ -54,7 +54,7 @@
     "extra": {
         "component": "package",
         "branch-alias": {
-            "dev-master": "5.0.x-dev"
+            "dev-master": "7.0.x-dev"
         },
         "laravel": {
             "providers": [
@@ -63,15 +63,13 @@
             "aliases": {
                 "Activation": "Cartalyst\\Sentinel\\Laravel\\Facades\\Activation",
                 "Reminder": "Cartalyst\\Sentinel\\Laravel\\Facades\\Reminder",
-                "Sentinel": "Cartalyst\\Sentinel\\Laravel\\Facades\\Sentinel",
-                "Suspension": "Cartalyst\\Sentinel\\Laravel\\Facades\\Suspension",
-                "Ban": "Cartalyst\\Sentinel\\Laravel\\Facades\\Ban"
+                "Sentinel": "Cartalyst\\Sentinel\\Laravel\\Facades\\Sentinel"
             }
         }
     },
     "scripts": {
         "cs:check": "./vendor/bin/php-cs-fixer fix --verbose --ansi --show-progress=estimating --diff --dry-run --config .php_cs.php",
         "cs:fix": "./vendor/bin/php-cs-fixer fix --verbose --ansi --show-progress=estimating --config .php_cs.php",
-        "test": "./vendor/bin/phpunit --verbose --colors=always"
+        "test": "./vendor/bin/phpunit --colors=always"
     }
 }

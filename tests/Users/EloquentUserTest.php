@@ -11,10 +11,10 @@
  * bundled with this package in the LICENSE file.
  *
  * @package    Sentinel
- * @version    5.1.0
+ * @version    7.0.0
  * @author     Cartalyst LLC
  * @license    BSD License (3-clause)
- * @copyright  (c) 2011-2020, Cartalyst LLC
+ * @copyright  (c) 2011-2023, Cartalyst LLC
  * @link       https://cartalyst.com
  */
 
@@ -35,6 +35,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class EloquentUserTest extends TestCase
 {
+    protected $user;
+
     /**
      * {@inheritdoc}
      */
@@ -142,6 +144,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processInsertGetId')->andReturn(1);
 
         $this->user->save();
@@ -157,6 +160,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processInsertGetId')->andReturn(1);
 
         $this->user->save();
@@ -174,6 +178,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processInsertGetId')->andReturn(1);
 
         $this->user->save();
@@ -257,6 +262,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processSelect')->andReturn([
             ['id' => 1, 'slug' => 'role1'],
             ['id' => 2, 'slug' => 'role2'],
@@ -282,6 +288,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processSelect')->andReturn([
             ['id' => 1, 'slug' => 'role1'],
             ['id' => 2, 'slug' => 'role2'],
@@ -305,6 +312,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processSelect')->andReturn([
             ['id' => 1, 'slug' => 'role1'],
             ['id' => 2, 'slug' => 'role2'],
@@ -340,6 +348,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('getDateFormat')->andReturn('Y-m-d H:i:s');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileInsertGetId');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processSelect')->andReturn([
             ['id' => 1, 'slug' => 'foobar'],
             ['id' => 2, 'slug' => 'foo'],
@@ -378,6 +387,7 @@ class EloquentUserTest extends TestCase
         $this->user->getConnection()->shouldReceive('getName');
         $this->user->getConnection()->shouldReceive('select');
         $this->user->getConnection()->getQueryGrammar()->shouldReceive('compileSelect');
+        $this->user->getConnection()->getQueryGrammar()->shouldReceive('getBitwiseOperators')->andReturn([]);
         $this->user->getConnection()->getPostProcessor()->shouldReceive('processSelect')->andReturn([]);
 
         $this->assertInstanceOf(Collection::class, $this->user->getRoles());
@@ -400,8 +410,8 @@ class EloquentUserTest extends TestCase
     /** @test */
     public function it_can_pass_methods_to_permissions_instance()
     {
-        $mockRole              = m::mock(EloquentRole::class);
-        $mockRole->permissions = [];
+        $mockRole = m::mock(EloquentRole::class);
+        $mockRole->shouldReceive('permissions')->andReturn([]);
 
         $permissions = ['foo' => true, 'bar' => false];
 
@@ -419,8 +429,8 @@ class EloquentUserTest extends TestCase
     /** @test */
     public function it_will_ignore_empty_secondary_permissions()
     {
-        $mockRole              = m::mock(EloquentRole::class);
-        $mockRole->permissions = null;
+        $mockRole = m::mock(EloquentRole::class);
+        $mockRole->shouldReceive('permissions')->andReturn(null);
 
         $permissions = ['foo' => true, 'bar' => false];
 
